@@ -12,7 +12,7 @@
 
   <style>
     /* ────────────────────────────────
-       ESTILOS GENERALES
+       ESTILOS GENERALES (sin cambios)
     ──────────────────────────────── */
     body {
       font-family: 'Lexend', sans-serif;
@@ -29,9 +29,7 @@
       padding: 10px;
     }
 
-    /* ────────────────────────────────
-       HEADER y FECHA
-    ──────────────────────────────── */
+    /* HEADER y FECHA */
     .header {
       background: #003f5c;
       color: white;
@@ -60,9 +58,7 @@
       font-weight: 500;
     }
 
-    /* ────────────────────────────────
-       SECCIÓN INTRODUCTORIA
-    ──────────────────────────────── */
+    /* SECCIÓN INTRODUCTORIA */
     .intro-section {
       display: flex;
       flex-wrap: wrap;
@@ -97,9 +93,7 @@
       aspect-ratio: 16 / 9;
     }
 
-    /* ────────────────────────────────
-       TÍTULOS DE SECCIÓN
-    ──────────────────────────────── */
+    /* TÍTULOS DE SECCIÓN */
     .section-title {
       font-family: 'Orbitron', sans-serif;
       text-align: center;
@@ -111,9 +105,7 @@
       letter-spacing: 1px;
     }
 
-    /* ────────────────────────────────
-       LISTA DE PUESTOS
-    ──────────────────────────────── */
+    /* LISTA DE PUESTOS */
     .puestos-container {
       background: white;
       padding: 15px;
@@ -154,9 +146,7 @@
       top: 0px;
     }
 
-    /* ────────────────────────────────
-       TARJETAS DE EMPRESAS
-    ──────────────────────────────── */
+    /* TARJETAS DE EMPRESAS */
     .dashboard {
       display: grid;
       grid-template-columns: repeat(1, 1fr);
@@ -222,17 +212,15 @@
       gap: 16px;
     }
 
-.vacantes-box {
-  background: #e8eef4;
-  color: #222;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  
-  /* Estas líneas centran TODO el contenido dentro del cuadro */
-  text-align: center;
-}
+    .vacantes-box {
+      background: #e8eef4;
+      color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      text-align: center;
+    }
 
     .vacantes-title {
       font-weight: 700;
@@ -240,6 +228,7 @@
       font-size: 1rem;
     }
 
+    /* BOTÓN CON ANIMACIÓN DE BRILLO / ESPEJO */
     .btn-ver-vacante {
       background: #3e8fb8;
       color: white;
@@ -251,31 +240,83 @@
       font-size: 0.95rem;
       cursor: pointer;
       text-align: center;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       letter-spacing: 0.5px;
-      text-decoration: none;
-      display: inline-block;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-ver-vacante:hover {
       background: #357ca3;
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(62, 143, 184, 0.3);
+      box-shadow: 0 4px 12px rgba(62, 143, 184, 0.4);
     }
 
-    /* ────────────────────────────────
-       BOTÓN FLOTANTE WHATSAPP (nuevo)
-    ──────────────────────────────── */
+    /* Efecto brillo/espejo al hover y active */
+    .btn-ver-vacante::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent 100%
+      );
+      transform: skewX(-25deg);
+      pointer-events: none;
+      transition: left 0.6s ease;
+    }
+
+    .btn-ver-vacante:hover::before {
+      left: 120%;
+    }
+
+    .btn-ver-vacante:active::before {
+      left: 120%;
+      transition: left 0.3s ease;
+    }
+
+    /* CONTENIDO EXPANDIBLE */
+    .info-expandida {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      background: #f8f9fa;
+      border: 1px solid #d0e0f0;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: #222;
+    }
+
+    .info-expandida ul {
+      padding-left: 22px;
+      margin: 12px 0;
+    }
+
+    .info-expandida li {
+      margin-bottom: 8px;
+    }
+
+    .info-expandida strong {
+      color: #3e8fb8;
+    }
+
+    /* WHATSAPP FLOAT */
     .whatsapp-float {
       position: fixed;
       width: 65px;
       height: 65px;
       bottom: 30px;
-      right: 30px;                  /* lado derecho */
+      right: 30px;
       background-color: #25D366;
       color: white;
       border-radius: 50%;
-      text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       z-index: 9999;
       transition: all 0.3s ease;
@@ -295,9 +336,7 @@
       height: 45px;
     }
 
-    /* ────────────────────────────────
-       RESPONSIVE
-    ──────────────────────────────── */
+    /* RESPONSIVE */
     @media (min-width: 640px) {
       .dashboard { grid-template-columns: repeat(2, 1fr); }
     }
@@ -335,7 +374,7 @@
   <div class="container">
 
     <div class="header">
-      <h1><span class="dot"></span>🟢 VACANTES DISPONIBLES</h1>
+      <h1>🟢 VACANTES DISPONIBLES</h1>
       <div class="fecha">Entrevistas: Jueves 05 de Marzo 2026</div>
     </div>
 
@@ -391,73 +430,114 @@
 
     <div class="dashboard">
 
+      <!-- AISIN -->
       <div class="card" style="animation-delay: 0.1s;">
         <div class="card-header">🟢 AISIN</div>
         <div class="card-body">
           <div class="desc">
             <p>Fabricación de componentes automotrices como transmisiones, bombas de agua/aceite, partes de motor y más...</p>
             <p>LUNES A JUEVES / TURNOS ROTATIVOS / 12 HRS.</p>
-<p>📍Ciénega de Flores.
+            <p>📍 Ciénega de Flores.</p>
           </div>
-
           <div class="vacantes">
             <div class="vacantes-box">
               <div class="vacantes-title">VACANTES DISPONIBLES:</div>
               Operadores de producción, Calidad y almacén.
             </div>
-            <a href="https://sites.google.com/view/akrocever-cv/1/aisin" class="btn-ver-vacante" target="_blank" rel="noopener noreferrer">
+            <button class="btn-ver-vacante" 
+                    onclick="let det=this.nextElementSibling; 
+                            det.style.display=(det.style.display==='block')?'none':'block'; 
+                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
               Ver vacante
-            </a>
+            </button>
+            <div class="info-expandida">
+              <p><strong>Detalles completos:</strong></p>
+              <ul>
+                <li>Posiciones: Operador de producción, Inspección de calidad, Almacén / logística</li>
+                <li>Horario: Lunes a jueves – 12 horas rotativas</li>
+                <li>Requisitos: Secundaria terminada, experiencia mínima 6 meses en producción (deseable)</li>
+                <li>Ofrecemos: Salario base + bonos productividad, prestaciones de ley, vales despensa</li>
+              </ul>
+              <p style="margin-top:14px; font-size:0.9em; color:#555;">Lleva CV o envíalo por WhatsApp a planta.</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="card" style="animation-delay: 0.1s;">
+      <!-- ALCO -->
+      <div class="card" style="animation-delay: 0.2s;">
         <div class="card-header">🟢 ALCO</div>
         <div class="card-body">
           <div class="desc">
             <p>Dedicada al procesamiento de alimentos principalmente al empacado de productos de pollo</p>
             <p>LUNES A VIERNES / TURNOS ROTATIVOS / 8 HRS.</p>
-<p>📍Ciénega de Flores.
+            <p>📍 Ciénega de Flores.</p>
           </div>
-
           <div class="vacantes">
             <div class="vacantes-box">
               <div class="vacantes-title">VACANTES DISPONIBLES:</div>
               Operadores de producción, Calidad y almacén.
             </div>
-            <a href="https://sites.google.com/view/akrocever-cv/1/alco" class="btn-ver-vacante" target="_blank" rel="noopener noreferrer">
+            <button class="btn-ver-vacante" 
+                    onclick="let det=this.nextElementSibling; 
+                            det.style.display=(det.style.display==='block')?'none':'block'; 
+                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
               Ver vacante
-            </a>
+            </button>
+            <div class="info-expandida">
+              <p><strong>Detalles completos:</strong></p>
+              <ul>
+                <li>Posiciones: Operador de empaque, Calidad alimentaria, Almacén</li>
+                <li>Horario: Lunes a viernes – 8 horas rotativas</li>
+                <li>Requisitos: Secundaria terminada, experiencia en alimentos (deseable), higiene y puntualidad</li>
+                <li>Ofrecemos: Salario base + prestaciones, vales despensa, ambiente limpio</li>
+              </ul>
+              <p style="margin-top:14px; font-size:0.9em; color:#555;">Contacta directamente en planta o por WhatsApp.</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="card" style="animation-delay: 0.1s;">
+      <!-- BELDEN -->
+      <div class="card" style="animation-delay: 0.3s;">
         <div class="card-header">🟢 BELDEN</div>
         <div class="card-body">
           <div class="desc">
-            <p>Producción de componentes electricos, conectores y cables para la industria de la comunicación redes y seguridad...</p>
+            <p>Producción de componentes eléctricos, conectores y cables para la industria de la comunicación, redes y seguridad...</p>
             <p>LUNES A VIERNES / TURNOS FIJOS A ELEGIR / 8 HRS.</p>
-<p>📍San Nicolás de los Garza.
+            <p>📍 San Nicolás de los Garza.</p>
           </div>
-
           <div class="vacantes">
             <div class="vacantes-box">
               <div class="vacantes-title">VACANTES DISPONIBLES:</div>
               Operadores de producción, Calidad y almacén.
             </div>
-            <a href="https://sites.google.com/view/akrocever-cv/1/belden" class="btn-ver-vacante" target="_blank" rel="noopener noreferrer">
+            <button class="btn-ver-vacante" 
+                    onclick="let det=this.nextElementSibling; 
+                            det.style.display=(det.style.display==='block')?'none':'block'; 
+                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
               Ver vacante
-            </a>
+            </button>
+            <div class="info-expandida">
+              <p><strong>Detalles completos:</strong></p>
+              <ul>
+                <li>Posiciones: Operador de ensamble, Control de calidad, Almacén</li>
+                <li>Horario: Lunes a viernes – 8 horas (turno fijo a elegir)</li>
+                <li>Requisitos: Secundaria terminada, experiencia en manufactura (deseable), precisión</li>
+                <li>Ofrecemos: Salario competitivo + prestaciones, ambiente técnico, crecimiento</li>
+              </ul>
+              <p style="margin-top:14px; font-size:0.9em; color:#555;">Envía CV o acude directamente a planta.</p>
+            </div>
           </div>
         </div>
       </div>
 
+    </div>
+
   </div>
 
-  <!-- Botón flotante WhatsApp (lado derecho) -->
-  <a href="https://wa.me/528117967047? text=Hola%2C%20estoy%20interesado%20en%20las%20vacantes" 
+  <!-- Botón flotante WhatsApp -->
+  <a href="https://wa.me/528117967047?text=Hola%2C%20estoy%20interesado%20en%20las%20vacantes" 
      class="whatsapp-float" 
      target="_blank" 
      rel="noopener noreferrer"
@@ -466,4 +546,4 @@
   </a>
 
 </body>
-  </html>
+</html>
