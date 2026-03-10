@@ -490,7 +490,7 @@
     <div class="dashboard">
 
 <!-- AISIN -->
-      <div class="card" style="animation-delay: 0.1s;">
+      <div class="card" style="animation-delay: 1.0s;">
         <div class="card-header">🟢 AISIN</div>
         <div class="card-body">
           <div class="desc">
@@ -522,7 +522,7 @@
       </div>
 
 <!-- ALCO -->
-      <div class="card" style="animation-delay: 0.2s;">
+      <div class="card" style="animation-delay: 1.0s;">
         <div class="card-header">🟢 ALCO</div>
         <div class="card-body">
           <div class="desc">
@@ -554,7 +554,7 @@
       </div>
 
       <!-- BELDEN -->
-      <div class="card" style="animation-delay: 0.2s;">
+      <div class="card" style="animation-delay: 1.0s;">
         <div class="card-header">🟢 BELDEN</div>
         <div class="card-body">
           <div class="desc">
@@ -586,7 +586,7 @@
       </div>
 
          <!-- BREMBO APODACA-->
-      <div class="card" style="animation-delay: 0.2s;">
+      <div class="card" style="animation-delay: 1.0s;">
         <div class="card-header">🟢 BREMBO APODACA</div>
         <div class="card-body">
           <div class="desc">
@@ -618,7 +618,7 @@
       </div>
 
             <!-- BULMATIC -->
-      <div class="card" style="animation-delay: 0.2s;">
+      <div class="card" style="animation-delay: 1.0s;">
         <div class="card-header">🟢 BULMATIC</div>
         <div class="card-body">
           <div class="desc">
@@ -882,7 +882,7 @@
         </div>
       </div>
 
-     !-- HUSSMANN -->
+     <!-- HUSSMANN -->
       <div class="card" style="animation-delay: 0.2s;">
         <div class="card-header">🟢 HUSSMANN</div>
         <div class="card-body">
@@ -1207,7 +1207,7 @@
       </div>
 
       <!-- SUMMIT -->
-      <div class="card" style="animation-delay: 0.2s;">
+      <div class="card" style="animation-delay: 1.0s;">
         <div class="card-header">🟢 SUMMIT</div>
         <div class="card-body">
           <div class="desc">
@@ -1240,7 +1240,7 @@
       </div>
 
          <!-- SUNON -->
-      <div class="card" style="animation-delay: 0.2s;">
+      <div class="card" style="animation-delay: 1.0s;">
         <div class="card-header">🟢 SUNON</div>
         <div class="card-body">
           <div class="desc">
@@ -1272,7 +1272,7 @@
       </div>
      
       <!-- TECONNEX -->
-      <div class="card" style="animation-delay: 0.2s;">
+      <div class="card" style="animation-delay: 1.0s;">
         <div class="card-header">🟢 TECONNEX</div>
         <div class="card-body">
           <div class="desc">
@@ -1344,5 +1344,29 @@
     }
   </script>
 
+  <script>
+  const bubble = document.getElementById('waBubble');
+  if (bubble && window.innerWidth <= 1024) {
+    const verButtons = document.querySelectorAll('.btn-ver-vacante');
+
+    function updateBubble() {
+      let algunaAbierta = false;
+      verButtons.forEach(btn => {
+        const detalles = btn.nextElementSibling;
+        if (detalles && detalles.style.display === 'block') {
+          algunaAbierta = true;
+        }
+      });
+      bubble.classList.toggle('visible', algunaAbierta);
+    }
+
+    verButtons.forEach(btn => {
+      btn.addEventListener('click', updateBubble);
+    });
+
+    updateBubble(); // chequeo inicial
+  }
+  </script>
+  
 </body>
 </html>
