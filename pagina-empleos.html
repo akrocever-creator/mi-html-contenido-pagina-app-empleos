@@ -17,7 +17,7 @@
       padding: 0;
       background-color: #f5f5f5;
       color: #333;
-      line-height: 1.2;          /* ← mejor legibilidad sin ser tan apretado */
+      line-height: 1.2;
     }
 
     .container {
@@ -177,11 +177,11 @@
     }
 
     .card-body {
-      padding: 16px 20px;           /* ← reducido de 24px */
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
-      gap: 12px;                    /* ← reducido significativamente */
-      text-align: center;           /* ← centra todo el contenido de la tarjeta */
+      gap: 12px;
+      text-align: center;
     }
 
     .desc {
@@ -190,35 +190,35 @@
       color: #222;
       letter-spacing: 0.1px;
       margin: 0 auto;
-      max-width: 90%;               /* evita que se vea muy ancho en pantallas grandes */
+      max-width: 90%;
     }
 
     .desc p {
-      margin: 0 0 0.6em 0;         /* ← menos espacio entre párrafos */
+      margin: 0 0 0.6em 0;
     }
 
     .vacantes {
       display: flex;
       flex-direction: column;
-      gap: 12px;                    /* ← reducido */
+      gap: 12px;
       align-items: center;
     }
 
     .vacantes-box {
       background: #e8eef4;
       color: #222;
-      padding: 10px 15px;           /* ← un poco menos padding vertical */
+      padding: 10px 15px;
       border-radius: 10px;
       font-size: 0.90rem;
       line-height: 1.3;
       text-align: center;
       width: 100%;
-      max-width: 320px;             /* ← evita que se estire demasiado */
+      max-width: 320px;
     }
 
     .vacantes-title {
       font-weight: 700;
-      margin-bottom: 8px;           /* ← reducido */
+      margin-bottom: 8px;
       font-size: 1rem;
     }
 
@@ -236,8 +236,8 @@
       transition: all 0.25s ease;
       letter-spacing: 0.5px;
       width: 100%;
-      max-width: 240px;             /* ← botón no ocupa todo el ancho */
-      margin: 0 auto;               /* ← centra el botón */
+      max-width: 240px;
+      margin: 0 auto;
       position: relative;
       overflow: hidden;
     }
@@ -267,15 +267,15 @@
 
     .info-expandida {
       display: none;
-      margin-top: 8px;              /* ← menos espacio arriba */
-      padding: 12px 16px;           /* ← ajustado para mejor legibilidad */
+      margin-top: 8px;
+      padding: 12px 16px;
       background: #f8f9fa;
       border: 1px solid #d0e0f0;
       border-radius: 8px;
       font-size: 0.88rem;
       line-height: 1.35;
       color: #222;
-      text-align: left;             /* ← texto alineado a la izquierda dentro del expandible (más legible) */
+      text-align: left;
       max-width: 90%;
       margin-left: auto;
       margin-right: auto;
@@ -322,45 +322,91 @@
       height: 45px;
     }
 
-    /* Estilos solo para el nuevo botón (sin afectar nada más) */
-    .quienes-somos-container {
-      text-align: center;
-      margin: 20px auto 45px;
+    /* === Burbuja de texto al lado izquierdo del WhatsApp === */
+    .wa-info-bubble {
+      position: fixed;
+      bottom: 48px;
+      right: 110px;
+      background: #ffffff;
+      color: #111;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+      border: 1px solid #e0e0e0;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+      transform: translateX(15px);
     }
 
-    .btn-quienes-somos {
-      display: inline-block;
-      background: #003f5c;
-      color: white;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      padding: 5px 30px;
-      border-radius: 10px;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(0, 63, 92, 0.35);
-      transition: all 0.3s ease;
+    .wa-info-bubble.visible,
+    .wa-info-bubble.always-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
     }
 
-    .btn-quienes-somos:hover {
-      background: #004b6e;
-      transform: translateY(-2px);
-      box-shadow: 0 7px 20px rgba(0, 63, 92, 0.5);
+    .wa-info-bubble::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      transform: translateY(-50%);
+      border: 8px solid transparent;
+      border-left-color: #ffffff;
     }
 
-    /* RESPONSIVE */
+    /* Siempre visible en computadoras */
+    @media (min-width: 1025px) {
+      .wa-info-bubble {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        right: 125px;
+        font-size: 14.5px;
+        padding: 10px 16px;
+      }
+    }
+
+    /* Ajustes en móvil y tablet */
+    @media (max-width: 1024px) {
+      .wa-info-bubble {
+        right: 100px;
+        bottom: 45px;
+        font-size: 13px;
+        padding: 8px 12px;
+        white-space: normal;
+        max-width: 240px;
+        text-align: center;
+      }
+
+      @media (max-width: 500px) {
+        .wa-info-bubble {
+          right: 85px;
+          bottom: 38px;
+          font-size: 12.5px;
+          padding: 7px 11px;
+          max-width: 210px;
+        }
+        .wa-info-bubble::after {
+          right: -8px;
+          border-width: 7px;
+        }
+      }
+    }
+
+    /* RESPONSIVE general */
     @media (min-width: 640px) {
       .dashboard { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (min-width: 1024px) {
       .dashboard { grid-template-columns: repeat(3, 1fr); }
-      .card-body {
-        flex-direction: column;
-        gap: 12px;                  /* ← sigue reducido en desktop */
-      }
     }
 
     @media (max-width: 768px) {
@@ -368,11 +414,6 @@
       .header { padding: 15px 10px; }
       .intro-section { flex-direction: column; }
       .intro-image { max-width: 90%; margin: 20px auto; }
-      .puestos-container { padding: 10px 10px; }
-      .card-body {
-        text-align: center;
-        gap: 14px;
-      }
     }
 
     @media (max-width: 500px) {
@@ -385,10 +426,6 @@
       .whatsapp-float img {
         width: 38px;
         height: 38px;
-      }
-      .btn-quienes-somos {
-        font-size: 0.95rem;
-        padding: 12px 32px;
       }
     }
   </style>
@@ -412,14 +449,6 @@
         <a href="#"><img src="https://i.ibb.co/G44M4tvp/Picsart-26-03-06-04-21-31-074.jpg" alt="Imagen introductoria"></a>
       </div>
     </div>
-
-    <!-- Botón agregado aquí ↓↓↓ -->
-    <div class="quienes-somos-container">
-      <a href="https://sites.google.com/view/akrocever/sistema" class="btn-quienes-somos" target="_blank" rel="noopener noreferrer">
-        QUIÉNES SOMOS
-      </a>
-    </div>
-    <!-- ↑↑↑ Botón agregado aquí -->
 
     <h2 class="section-title">PUESTOS DISPONIBLES</h2>
 
@@ -456,11 +485,11 @@
       </div>
     </div>
 
-    <h2 class="section-title">EMPRESAS</h2>
+    <div class="section-title">EMPRESAS</div>
 
     <div class="dashboard">
 
-      <!-- AISIN -->
+<!-- AISIN -->
       <div class="card" style="animation-delay: 0.1s;">
         <div class="card-header">🟢 AISIN</div>
         <div class="card-body">
@@ -492,7 +521,7 @@
         </div>
       </div>
 
-      <!-- ALCO -->
+<!-- ALCO -->
       <div class="card" style="animation-delay: 0.2s;">
         <div class="card-header">🟢 ALCO</div>
         <div class="card-body">
@@ -524,7 +553,7 @@
         </div>
       </div>
 
-       <!-- BELDEN -->
+      <!-- BELDEN -->
       <div class="card" style="animation-delay: 0.2s;">
         <div class="card-header">🟢 BELDEN</div>
         <div class="card-body">
@@ -587,734 +616,74 @@
           </div>
         </div>
       </div>
-      
-            <!-- BULMATIC -->
+
+      <!-- Tarjeta 2: Apodaca / Escobedo -->
       <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 BULMATIC</div>
+        <div class="card-header">
+          📍 Apodaca / Escobedo
+        </div>
         <div class="card-body">
           <div class="desc">
-            <p>Se especializan en el trasvase de productos (ferrocarril a camión), manejo de resinas plásticas, químicos, petrolíferos y alimentos...</p>
-            <p>LUNES A SÁBADO / TURNOS ROTATIVOS / DIA, TARDE, NOCHE Y MIXTO / 8 HRS.</p>
-            <p>📍 Salinas Victoria.</p>
+            <p>Zona con alta demanda. Mayoría con entrada/salida en transporte público.</p>
           </div>
           <div class="vacantes">
             <div class="vacantes-box">
               <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Montacarguista.
+              <p>Ayudante general, Operador de montacargas, Empacador.</p>
             </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /20 a 50 años, Secundaria terminada, Experiencia mínimo un año en montacargas.</li>
-                <li><strong>Sueldo semanal:</strong> $3,042.85</li>
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Bonos, prestaciones de ley y más beneficios...</li>
-                
-              </ul>
-            </div>
+          </div>
+          <button class="btn-ver-vacante" onclick="let det=this.nextElementSibling; det.style.display=(det.style.display==='block')?'none':'block'; this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
+            Ver vacante
+          </button>
+          <div class="info-expandida">
+            <strong>Sueldo inicial:</strong> $8,800 – $10,800 semanales<br>
+            <strong>Horarios:</strong> Matutino, vespertino y nocturno<br>
+            <strong>Requisitos:</strong> Experiencia mínima 3 meses (no indispensable en ayudantes)
           </div>
         </div>
       </div>
 
-      <!-- CARTAMUNDI -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 CARTAMUNDI</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Empresa líder en juegos de mesa. Producen barajas coleccionables y de juegos clásicas para marcas reconocidas...</p>
-            <p>LUNES A VIERNES / TURNOS ROTATIVOS / DIA Y TARDE / 8 HRS.</p>
-            <p>📍 Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> $2,244.83</li>
-                <li><strong>Ofrecemos:</strong> transporte, Bonos, prestaciones de ley...</li>
-                <li>Tu ingreso es al siguiente día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COOPER -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 COOPER</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Productos de iluminación industrial, comercial, residencial, deportivos y control y más...</p>
-            <p>LUNES A VIERNES / TURNOS ROTATIVOS / DIA Y NOCHE / 9 HRS.</p>
-            <p>📍 Ciénega de Flores.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo diario:</strong> $315.04 (aumenta a los 3 meses)</li>
-                <li>Ingreso semanal aproximado $3,085 (adi) las primeras 4 semanas.
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-       <!-- DREAMSHILL -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 DREAMSHILL</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>...</p>
-            <p>LUNES A VIERNES / TURNOS ROTATIVOS / DÍA Y NOCHE / 12 HRS.</p>
-            <p>📍 .</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Calidad Visual.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> Día $3,180 libres</li>
-                <li>Noche $3,800 libres
-                <li><strong>Ofrecemos:</strong> Comedor gratis, transporte, Bonos, prestaciones de ley...</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-            <!-- FIMEX -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 FIMEX</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Fabricación de tuberías industriales de plástico...</p>
-            <p>LUNES A DOMINGO / TURNOS ROTATIVOS 4x3 / 12 HRS.</p>
-            <p>📍 Ciénega de Flores.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general, Guardia, Montacarguista, Tecnico en Mantenimiento, Inspector de calidad, Tecnico Operador de maquinas, Moldista para mantenimiento, Auxiliar de limpieza industrial y Auxiliar industrial (enfermero/a).
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Experiencia en el puesto que solicita.
-                <li> Hombres / 20 a 55 años (todos los puestos).
-                <li> Hombres y mujeres / 20 a 40 años (Inspector de calidad y Auxiliar industrial (enfermero/a).
-                <li><strong>Sueldo semanal:</strong> Ayudante general $2,300
-                <li>Guardia $2,400 libres
-                <li>Montacarguista $2,700 libres
-                <li>Tecnico $2,500 a $4,000 libres
-                <li>Inspector de calidad $2,300 libres
-                <li>Moldista para mantenimiento $4,000 libres
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Bonos, prestaciones de ley...
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- GIRO CEDIS -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 GIRO CEDIS</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Centro de distribución, Nucleo logístico qué abastece a todas sus tiendas en México...</p>
-            <p>LUNES A JUEVES / TURNOS ROTATIVOS / 12 HRS.</p>
-            <p>📍 Escobedo.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Auxiliar de centro de distribución.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 55 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Actividad:</strong>Recibo, almacén, embarques de frescos y secos.</li>
-                <li><strong>Sueldo semanal:</strong> $2,524 (así).
-                <li><strong>Ofrecemos:</strong>:</strong> Comedor subsidiado, transporte, Bonos, prestaciones de ley...</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HAENG SUNG -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 HAENG SUNG</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Empresa líder en la industria electrónica especializada en la manufactura, fabricación y ensamblajes de componentes electrónicos y arneses...</p>
-            <p>LUNES A VIERNES / TURNOS FIJOS / DIA Y NOCHE / 9 HRS.</p>
-            <p>📍 Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general, Materialista, Inspector de calidad.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> $2,205</li>
-                <li>Ingreso aproximado $3,315 ya sumando los bonos.
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-                <li>Si llegas temprano a entrevista te quedas a Inducción.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-       <!-- HAKKAI -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 HAKKAI</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>...</p>
-            <p>LUNES A VIERNES / TURNOS ROTATIVOS / DÍA Y NOCHE / 12 HRS.</p>
-            <p>📍 Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante GENERAL. Operador de empaque, Inspector de calidad, Embarques y materialista.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 58 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> Op. de empaque, producción e Inspector de calidad: $2,279 (incluyendo bonos).</li>
-                <li>Embarques y materialistas: $2,907 (, incluyendo bonos).
-                <li>Bono de contratación de $3,000.
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-                <li>Tu ingreso es al siguiente día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- HUSSMANN -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 HUSSMANN</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>...</p>
-            <p>LUNES A SÁBADO / TURNOS ROTATIVOS / DÍA, TARDE Y NOCHE / 8 HRS.</p>
-            <p>📍 Ciénega de Flores.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 55 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal</strong> $3,080 (adi)</li>
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Bonos, prestaciones de ley...</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HYUNDAI GLOVIS-->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 HYUNDAI GLOVIS</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Opera como el socio logístico de Kia, gestionando el transporte, almacenamiento, carga y descarga de los vehículos recién ensamblados...</p>
-            <p>LUNES A VIERNES / TURNOS ROTATIVOS / DÍA Y NOCHE / 9 HRS.</p>
-            <p>📍 Pesquería.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general (línea de producción).
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 55 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> $2,461</li>
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-                <li>Se aceptan extranjeros, Tu ingreso es al mismo día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- INDALUM -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 INDALUM</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>...</p>
-            <p>LUNES A SABADO / TURNOS ROTATIVOS / DÍA, TARDE Y NOCHE / 8 HRS.</p>
-            <p>📍 San Nicolás de los Garza.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 58 años, Secundaria terminada, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> $2,536</li>
-                <li>Bono de permanencia $3,700
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-                <li>Tu ingreso es al siguiente día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- INGETEK -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 INGETEK</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>...</p>
-            <p>LUNES A VIERNES / TURNOS DE 8 y 10!HRS.</p>
-            <p>📍 García.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres / 18 a 50 años, Escolaridad primaria, Eperiencia 6 meses en fábrica.</li>
-                <li><strong>Sueldo diario:</strong> $367.50</li>
-                <li><strong>Ofrecemos:</strong> Transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-        <!-- JU YOUNG -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 JU YOUNG</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Se especializa en la Fabricación de componentes metálicos de inyección de plástico para la industria automotriz.</p>
-            <p>LUNES A VIERNES / TURNOS ROTATIVOS / 12 HRS.</p>
-            <p>📍 Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general (Prensas o inyección), Inspector de calidad, Auxiliar de almacén y Tecnico en mantenimiento.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres / Experiencia en fabrica. (en cada puesto los requisitos son diferentes.
-                <li><strong>Sueldo semanal:</strong> Ayudante general e Inspector de calidad (dia $3,193 libres) (noche $3,735 libres)</li>
-                <li>Auxiliar de almacén $2,800 libres
-                <li>Tecnico en mantenimiento $ 4,760 (adi).
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, Bonos, prestaciones de ley...
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- K FLEX -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 K FLEX</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Dedicada al procesamiento de alimentos principalmente al empacado de productos de pollo...</p>
-            <p>LUNES A JUEVES / TURNOS ROTATIVOS / DÍA Y NOCHE / 12 HRS.</p>
-            <p>📍 Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general y limpieza y Montacarguista.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> Ayudante general y limpieza: $2,380</li>
-                <li>Montacarguista: 3,163
-                <li><strong>Ofrecemos:</strong> transporte, Apoyo de comedor, Bonos, prestaciones de ley...</li>
-                <li>Tu ingreso es al siguiente día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-       <!-- OMEGA -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 OMEGA</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Producción de baterías de carros...</p>
-            <p>LUNES A SÁBADO / TURNOS ROTATIVOS / DIA Y TARDE / 8 HRS.</p>
-            <p>📍 Pesquería.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 60 años, Saber leer y escribir, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> $2,648 libres</li>
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-                <li>Papelería completa para ingresar el mismo día.
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-       <!-- PIASA -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 PIASA</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Desarrollo de condimentos, especias, aderezos, salsas y mezclas funcionales para la industria alimentaria..</p>
-            <p>LUNES A VIERNES / TURNOS FIJOS / DIA, TARDE Y NOCHE / 8 HRS.</p>
-            <p>📍 3 plantas: Kronos, Flexpark, Stiva, - Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general, Montacarguista.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> (Planta flexpark: Hombres y mujeres) (Planta Kronos y stiva: Hombres) / Edad: 18 a 50 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo:</strong> Kronos: Montacarguista $423 diario ($3,261 semanal)</li>
-                <li>Ayudante general: $2,838 semanal.
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-       <!-- PENTAIR-->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 PENTAIR</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>...</p>
-            <p>LUNES A VIERNES / TURNO FIJO DE DÍA / 9 HRS.</p>
-            <p>📍 Parque Finsa, Guadalupe.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ensamblador y materialista.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /20 a 50 años, Escolaridad primaria, Experiencia 6 meses en fabrica.</li>
-                <li><strong>Sueldo semanal:</strong> $2,282 (adi)</li>
-                <li>$2,715 (adi) al cumplir el mes).
-                <li><strong>Ofrecemos:</strong> Transporte, comedor, Vales de despensa, Bonos, prestaciones de ley...</li>
-                <li>Tu ingreso es al siguiente día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SEOHAN-->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 SEOHAN</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Fabricación y montaje de autopartes...</p>
-            <p>LUNES A SABADO / TURNOS ROTATIVOS / 8 HRS.</p>
-            <p>📍 Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Operadores de producción, Materialista, Inspector de calidad.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, Secundaria terminada, NO se necesita experiencia.</li>
-                <li>Materialistas: Hombres (con experiencia en montacargas).
-                <li><strong>Sueldo semanal:</strong> Op. De producción e Inspector de calidad: $2,380</li>
-                <li>Materialistas: $2,590
-                <li><strong>Ofrecemos:</strong> Comedor gratis, transporte, Vales de despensa, Tiempo extra, Bonos, prestaciones de ley...</li>
-                <li>Tu ingreso es al siguiente día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SIXFLEX -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 SIXFLEX</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>...</p>
-            <p>TURNOS ROTATIVOS / DÍA, TARDE Y NOCHE / 8 HRS.</p>
-            <p>📍 General Escobedo.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general e Inspector de calidad.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo:</strong> Ayudante general $2,500 libres semanal</li>
-                <li>Inspector de calidad: $16,000 Mensuales
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Bonos, prestaciones de ley...</li>
-                <li>Sin examenes médicos (solo cuestionario). Tu ingreso es el mismo día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SUMMIT -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 SUMMIT</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>...</p>
-            <p>LUNES A SABADO / TURNOS ROTATIVOS / DÍA, TARDE Y NOCHE / 8 HRS.</p>
-            <p>📍 Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 55 años, Escolaridad primaria, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> $2,552</li>
-                <li>Bono de permanencia $4,000.
-                <li><strong>Ofrecemos:</strong> Comedor gratuito, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-                <li>Se aceptan extranjeros, Tu ingreso es al siguiente día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SUNON -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 SUNON</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Empresa líder internacional de muebles y sillas de oficina ergonómicas...</p>
-            <p>LUNES A VIERNES / TURNOS FIJOS / 9 HRS.</p>
-            <p>📍Salinas Victoria.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> $2,280 libres (incluyendo bonos).</li>
-                <li>Sin semana de fondo ni desfasada.
-                <li><strong>Ofrecemos:</strong> Transporte, Comedor subsidiado, Vales de despensa, Bonos, prestaciones de ley...</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-     
-      <!-- TECONNEX -->
-      <div class="card" style="animation-delay: 0.2s;">
-        <div class="card-header">🟢 TECONNEX</div>
-        <div class="card-body">
-          <div class="desc">
-            <p>Se especializa en la manufactura de abrazaderas industriales, componentes de conexión para el sector automotriz e industrial...</p>
-            <p>LUNES A JUEVES / TURNOS FIJOS / DÍA Y NOCHE / 12 HRS.</p>
-            <p>📍 Apodaca.</p>
-          </div>
-          <div class="vacantes">
-            <div class="vacantes-box">
-              <div class="vacantes-title">VACANTES DISPONIBLES:</div>
-              Ayudante general.
-            </div>
-            <button class="btn-ver-vacante" 
-                    onclick="let det=this.nextElementSibling; 
-                            det.style.display=(det.style.display==='block')?'none':'block'; 
-                            this.textContent=(this.textContent==='Ver vacante')?'Ocultar detalles':'Ver vacante';">
-              Ver vacante
-            </button>
-            <div class="info-expandida">
-              <ul>
-                <li><strong>Requisitos:</strong> Hombres y mujeres /18 a 50 años, Secundaria terminada, NO se necesita experiencia.</li>
-                <li><strong>Sueldo semanal:</strong> $2,554</li>
-                <li><strong>Ofrecemos:</strong> Comedor subsidiado, transporte, Tiempo extra, Bonos, prestaciones de ley...</li>
-                <li>Tu ingreso es al siguiente día.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      
     </div>
 
   </div>
 
-  <a href="https://wa.me/528117967047?text=Hola%2C%20me%20interesa%20una%20vacante" 
-     class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chatea por WhatsApp">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-  </a>
+    <!-- Botón flotante WhatsApp -->
+    <a href="https://wa.me/528117967047?text=Hola%2C%20me%20interesa%20una%20vacante" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+
+    <!-- Burbuja de texto flotante -->
+    <div class="wa-info-bubble" id="waBubble">
+      Para más información da clic al ícono de WhatsApp
+    </div>
+
+  </div>
+
+  <!-- Script para controlar la burbuja en móvil/tablet -->
+  <script>
+    const bubble = document.getElementById('waBubble');
+    if (bubble && window.innerWidth <= 1024) {
+      const verButtons = document.querySelectorAll('.btn-ver-vacante');
+
+      function updateBubbleVisibility() {
+        let algunaExpandida = false;
+        verButtons.forEach(btn => {
+          const detalles = btn.nextElementSibling;
+          if (detalles && detalles.style.display === 'block') {
+            algunaExpandida = true;
+          }
+        });
+        bubble.classList.toggle('visible', algunaExpandida);
+      }
+
+      verButtons.forEach(btn => {
+        btn.addEventListener('click', updateBubbleVisibility);
+      });
+
+      // Verificar al cargar
+      updateBubbleVisibility();
+    }
+  </script>
 
 </body>
 </html>
