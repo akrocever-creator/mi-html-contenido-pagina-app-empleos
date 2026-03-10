@@ -1391,35 +1391,41 @@
   </script>
 
 <script>
-// Contador de empresas / tarjetas
-function actualizarContadorEmpresas() {
+// Función principal para contar tarjetas
+function contarEmpresas() {
+  // Busca todas las tarjetas .card dentro de .dashboard
   const tarjetas = document.querySelectorAll('.dashboard .card');
   const contador = document.getElementById('numero-empresas');
-  
+
+  console.log('Buscando tarjetas... Encontradas:', tarjetas.length);
+
   if (contador) {
-    const cantidad = tarjetas.length;
-    contador.textContent = cantidad;
-    console.log('Contador actualizado → Empresas encontradas:', cantidad);
+    contador.textContent = tarjetas.length;
+    console.log('Contador actualizado a:', tarjetas.length);
   } else {
-    console.warn('No se encontró el elemento #numero-empresas');
+    console.warn('No se encontró el <span id="numero-empresas">');
   }
+
+  // Si quieres plural: "1 empresa" o "5 empresas"
+  // contador.textContent = tarjetas.length + (tarjetas.length === 1 ? ' empresa' : ' empresas');
 }
 
-// Ejecutar varias veces con diferentes delays (por si el fetch es lento)
+// Ejecutar varias veces con diferentes tiempos (por si el fetch es lento)
 window.addEventListener('load', () => {
-  setTimeout(actualizarContadorEmpresas, 800);
-  setTimeout(actualizarContadorEmpresas, 1500);
-  setTimeout(actualizarContadorEmpresas, 2500);
+  setTimeout(contarEmpresas, 1000);
+  setTimeout(contarEmpresas, 2000);
+  setTimeout(contarEmpresas, 3000);
+  setTimeout(contarEmpresas, 5000); // extra seguridad
 });
 
-// Si usas fetch, pon esto dentro del .then después de innerHTML
-// Ejemplo:
+// Si usas fetch, pon esto DENTRO del .then después de innerHTML = html
 /*
-fetch(...).then(html => {
-  document.getElementById('contenido-empleos').innerHTML = html;
-  setTimeout(actualizarContadorEmpresas, 1500);
-  // o los otros timeouts
-});
+fetch(...)
+  .then(html => {
+    document.getElementById('contenido-empleos').innerHTML = html;
+    setTimeout(contarEmpresas, 1500);
+    setTimeout(contarEmpresas, 3000);
+  });
 */
 </script>
 
