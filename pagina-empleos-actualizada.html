@@ -521,6 +521,10 @@
 
     <div class="section-title">EMPRESAS</div>
 
+<div id="contador-empresas" style="text-align: center; margin-bottom: 20px; font-size: 1.1rem; color: #004080; font-weight: 600;">
+  Empresas activas con vacantes: <span id="numero-empresas">0</span>
+</div>
+
     <div class="dashboard">
 
         <!-- AISIN -->
@@ -1385,6 +1389,23 @@
       }, 800);  // Delay corto para asegurar que el DOM esté listo
     });
   </script>
+
+<script>
+  // Espera a que cargue todo (o después del fetch si usas innerHTML)
+  window.addEventListener('load', function() {
+    setTimeout(() => {
+      const tarjetas = document.querySelectorAll('.dashboard .card');
+      const contador = document.getElementById('numero-empresas');
+      
+      if (contador && tarjetas.length > 0) {
+        contador.textContent = tarjetas.length;
+      } else {
+        // Si no hay tarjetas o no se cargaron
+        if (contador) contador.textContent = '0';
+      }
+    }, 800); // pequeño retraso por si el contenido es dinámico
+  });
+</script>
 
 </body>
                                                                                                            </html>
